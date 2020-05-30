@@ -7,7 +7,8 @@ class Main extends Component {
     super(props)
 
     this.state = {
-      pictureURL: []
+      pictureURL: '',
+      raza: ''
     }
   }
 
@@ -22,17 +23,21 @@ class Main extends Component {
     })
   }
 
+  handleChange = event => {
+    this.setState({
+      raza: event.target.value
+    })
+  }
+
   render() {
-    const fotos = this.state.pictureURL
     return (
         <>
           <div>
-            {fotos.map((element, index) => {
-                return <img style={{width: 250, height: 250}} src={element} alt="imagen de perritos" key={index} />
-              })
-            }
+            <img style={{width: 250, margin: 15}} src={this.state.pictureURL} alt="imagen de perritos" />
           </div>
-          <button>Actualizar</button>
+
+          <input value={this.state.raza} onChange={this.handleChange} />
+          <button onClick={() => this.obtenerImagen(`https://dog.ceo/api/breed/${this.state.raza}/images/random`)}>Actualizar</button>
         </>
     );
   }
